@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_title_bar">Request_token</div>
+<div class="prod_box_big">
+    <div class="top_prod_box_big"></div>
+    <div class="center_prod_box_big">
+        <form id="tokenform" method="post" action="SetRequestToken">
+            <input id="request_token" type="hidden" name="request_token" value="" />
+        </form>
+            <div class="contact_form">
+                <input id="request_token" type="hidden" name="request_token" value="@ViewData["request_token"]" />
+                <input id="callback" type="hidden" name="callback" value="123" />
+
+                <div class="form_row">
+                    <label class="contact"><strong>Consumer Key</strong></label>
+                    <input type="text" id="prodId" class="contact_input" />
+                </div>
+                <div class="form_row">
+                    <input type="button" value="GET" onclick="get();" />
+                </div>
+            </div>
+    </div>
+    <div class="bottom_prod_box_big"></div>
+</div>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+        var uri = 'http://etmdt2015.somee.com/oauth/request_token';
+
+
+
+
+        function get() {
+            var id = $('#prodId').val();
+            $.ajax({
+                url: "http://localhost:5589/api/oauth/request_token",
+                type: "POST",
+                dataType: "json",
+                cache: false,
+                crossDomain: true,
+                processData: true,
+                //contentType: "application/text",
+                data: { '': id },
+                success: function (data) {
+                    var request_token = document.getElementById("request_token");
+                    request_token.value = data;
+
+                    document.getElementById("tokenform").submit();
+                },
+
+
+
+            });
+
+
+        }
+
+    </script>

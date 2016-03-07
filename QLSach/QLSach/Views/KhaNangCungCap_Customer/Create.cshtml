@@ -1,0 +1,44 @@
+﻿@model QLSach.Models.KhaNangCungCap
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_content">
+    <div class="center_title_bar">Đăng kí bán sách</div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+            <div class="contact_form">
+
+                <form action="/KhaNangCungCap_Customer/Insert" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form_row">
+                        <label class="contact"><strong>Mã NCC:</strong></label>
+                        <input type="text" class="contact_input" name="mancc" value="@ViewData["MaNCC"]"/>
+                    </div>
+
+                    <div class="form_row">
+                        <label class="contact"><strong>Mã sách:</strong></label>
+                        <input type="text" class="contact_input" name="masach" value="@ViewData["MaSach"]" />
+                    </div>
+
+                    <div class="form_row">
+                        <label class="contact"><strong>Giá bán:</strong></label>
+                        <input type="text" class="contact_input" name="dongia"/>
+                    </div>
+
+                    <div class="form_row">
+                        <label class="contact"><strong>Số lượng:</strong></label>
+                        <input type="number" class="contact_input" name="soluong"/>
+                    </div>
+
+                    <div class="form_row">
+                        <input type="submit" value="Hoàn tất" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

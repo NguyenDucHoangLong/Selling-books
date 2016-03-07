@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+<div class="center_content">
+    <div class="center_title_bar">Đăng nhập</div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+            @Html.ValidationMessage("fail")
+            <form action="/Login_Customer/CheckLogin" method="post">
+                <div class="contact_form">
+                    <div class="form_row">
+                        <label class="contact"><strong>Tên đăng nhập</strong></label>
+                        <input type="text" placeholder="Tên đăng nhập" class="contact_input" name="username"/>
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Mật khẩu</strong></label>
+                        <input type="password" placeholder="Mật khẩu" class="contact_input" name="pass" />
+                    </div>
+                    <input type="hidden" value="@ViewBag.ReturnUrl" class="contact_input" name="returnUrl" />
+                    <div class="form_row"> 
+                        <input type="submit" value="Đăng nhập" />
+                    </div>
+                    <div class="form_row">
+                        Đăng kí tài khoản: <a href="/Login_Customer/CreateCustomer">Khách hàng</a>/<a href="/Login_Customer/CreateBusiness">Đối tác</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom_prod_box_big"></div>
+    </div>
+</div>

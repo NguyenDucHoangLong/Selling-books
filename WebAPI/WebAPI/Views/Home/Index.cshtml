@@ -1,0 +1,21 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @Html.ActionLink("Đăng Nhập", "Login", "Login")<br />
+        <h2>Wellcome to factory</h2>
+        @Html.ActionLink("Thông Tin Sách(access_token)", "InformationBook", "Home")<br />
+        @Html.ActionLink("Thông Tin Sách(username,password)", "InformationBook1", "Home")
+    </div>
+</body>
+</html>

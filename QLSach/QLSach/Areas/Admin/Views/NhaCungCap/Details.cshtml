@@ -1,0 +1,63 @@
+﻿@model QLSach.Models.NhaCungCap
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminDefault.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Chi tiết nhà cung cấp</h3>
+            </div>
+            <dl class="dl-horizontal">
+                <dt>
+                    Tên NCC
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenNCC)
+                </dd>
+
+                <dt>
+                    Địa chỉ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DiaChi)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SDT)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SDT)
+                </dd>
+
+                <dt>
+                    Tài khoản
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TaiKhoan)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+            </dl>
+
+            <p>
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.MaNCC })
+            </p>
+        </div>
+    </div>
+</div>
+

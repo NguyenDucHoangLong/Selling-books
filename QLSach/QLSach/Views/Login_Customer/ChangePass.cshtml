@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "ChangePass";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<script src=" ~/Scripts/jquery-2.1.4.intellisense.js"></script>
+<script src=" ~/Scripts/jquery-2.1.4.js"></script>
+<script src=" ~/Scripts/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    function check() {
+        if ($('#newpass').val() == "" || $('#comfirmpass').val() == "" || $('#oldpass').val() == "") {
+            alert("Chưa nhập đầy đủ thông tin");
+            return false;
+        }
+        if ($('#comfirmpass').val() != $('#newpass').val()) {
+            alert("Xác nhận mật khẩu chưa đúng");
+            return false;
+        }
+        return true;
+
+    };
+</script>
+
+
+
+<div class="center_content">
+    <div class="center_title_bar">Đổi mật khẩu</div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+            @Html.ValidationMessage("fail")
+            <form action="/Login_Customer/ChangePassWord" method="post">
+                <div class="contact_form">
+                    <div class="form_row">
+                        <label class="contact"><strong>Mật khẩu cũ</strong></label>
+                        <input type="password" placeholder="Mật khẩu cũ" class="contact_input" id="oldpass" name="oldpass" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Mật khẩu mới</strong></label>
+                        <input type="password" placeholder="Mật khẩu mới" class="contact_input" id="newpass" name="newpass" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Xác nhận</strong></label>
+                        <input type="password" placeholder="Nhập lại mật khẩu" class="contact_input" id="comfirmpass" name="comfirmpass" />
+                    </div>
+                    <div class="form_row">
+                        <input type="submit" value="Lưu" onclick="return check()" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom_prod_box_big"></div>
+    </div>
+</div>
+

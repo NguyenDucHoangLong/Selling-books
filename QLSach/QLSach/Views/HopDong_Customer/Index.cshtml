@@ -1,0 +1,67 @@
+﻿@model PagedList.IPagedList<QLSach.Models.HopDong>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_content">
+    <div class="center_title_bar">Tất cả đơn hàng</div>
+    @if (@ViewData["error"].ToString() == "error")
+    {
+        <div class="details_big_box">
+            <h3>@Html.ValidationMessage("fail")</h3>
+        </div>
+    }
+    else
+    {
+        if (Model == null)
+        {
+            <div class="details_big_box">
+                <h3>Không có kết quả</h3>
+            </div>
+        }
+        else
+        {
+            <div class="details_big_box">
+                <h3>@Html.ValidationMessage("fail")</h3>
+            </div>
+            <div class="prod_box_big">
+                <table class="table">
+                    <tr>
+                        <th>Mã hợp đồng</th>
+                        <th>Ngày BĐ</th>
+                        <th>Ngày KT</th>
+                        <th>Tình trạng</th>
+                        @*<th>Công cụ</th>*@
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaHopDong</td>
+                            <td>@item.NgayBatDau</td>
+                            <td>@item.NgayKetThuc</td>
+                            <td>@item.TinhTrang</td>
+                            @*<td>
+                                @Ajax.ActionLink("Chi tiết", "Index", "CTDH_KH_Customer", new { @id = item.MaDonHang }, new AjaxOptions
+                                {
+                                    HttpMethod = "Get"
+                                })&nbsp;|&nbsp;
+                                @Html.ActionLink("Hủy", "Delete", new { id = @item.MaDonHang })
+
+                            </td>*@
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="center_title_bar1">
+                <div class="pager">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+                Kết quả hiển thị từ @Model.FirstItemOnPage tới @Model.LastItemOnPage trong @Model.TotalItemCount đơn hàng
+            </div>
+        }
+    }
+
+</div>

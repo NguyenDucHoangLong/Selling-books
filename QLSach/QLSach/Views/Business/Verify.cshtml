@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_title_bar">Lấy access_token <a href="/Business/Index2" class="payment">Quay lại</a> </div>
+<div class="prod_box_big">
+    <div class="top_prod_box_big"></div>
+    <div class="center_prod_box_big">
+        <div class="contact_form">
+            <div class="form_row">
+                <label class="contact"><strong>Comsumer Key</strong></label>
+                <input type="text" class="contact_input" id="consumer_key" />
+            </div>
+            <input id="request_token" type="hidden" class="contact_input" value="@ViewData["request_token"]"/>
+            <div class="form_row">
+                <label class="contact"><strong>Verifier Token</strong></label>
+                <input type="text" class="contact_input" id="verifier_token" value="@ViewData["verifier_token"]" readonly="readonly"/>
+            </div>
+            
+            <div class="form_row">
+                <label class="contact"><strong>Access Token</strong></label>
+                <input type="text" class="contact_input" id="access_token" />
+            </div>
+
+            <div class="form_row">
+                <input type="button" value="GET ACCESS TOKEN" onclick="get();" />
+            </div>
+        </div>
+
+    </div>
+    <div class="bottom_prod_box_big"></div>
+</div>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+        var uri = 'http://etmdt2015.somee.com/oauth/access_token';
+
+
+
+
+        function get() {
+            var consumerkey = document.getElementById("consumer_key");
+            var request = document.getElementById("request_token");
+            var verifier = document.getElementById("verifier_token");
+
+
+            $.ajax({
+
+                url: "http://localhost:5589/api/oauth/access_token",
+                type: "POST",
+
+                dataType: "json",
+                cache: false,
+                crossDomain: true,
+                processData: true,
+                //contentType: "application/text",
+                data: { consumer_key: consumerkey.value, request_token: request.value, verifier_token: verifier.value },
+
+                success: function (data) {
+                    var access = document.getElementById("access_token");
+                    access.value = data;
+                }
+
+
+            });
+
+
+        }
+    </script>

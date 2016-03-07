@@ -1,0 +1,125 @@
+﻿@model QLSach.Models.Sach
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminDefault.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Chi tiết sách</h3>
+            </div>
+            <dl class="dl-horizontal">
+                <dt>
+                    Tên sách
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenSach)
+                </dd>
+
+                <dt>
+                    Mô tả
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MoTa)
+                </dd>
+
+                <dt>
+                    Giá
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Gia)
+                </dd>
+
+                <dt>
+                    Số lượng tồn
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SoLuongTon)
+                </dd>
+
+                <dt>
+                    Năm sản xuất
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NamSanXuat)
+                </dd>
+
+                <dt>
+                    Nhà xuất bản
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NhaXuatBan)
+                </dd>
+
+                <dt>
+                    Tác giả
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TacGia)
+                </dd>
+
+                <dt>
+                    Ảnh
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AnhBia)
+                </dd>
+
+                <dt>
+                    Số lượng cần
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SoLuongCan)
+                </dd>
+
+                <dt>
+                    Tình trạng
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TinhTrang)
+                </dd>
+
+                <dt>
+                    Số lượng tồn tối thiểu
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SoLuongTonToiThieu)
+                </dd>
+
+                <dt>
+                    Thời hạn hợp đồng
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ThoiHan)
+                </dd>
+
+                <dt>
+                    Danh mục
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DanhMuc1.TenDanhMuc)
+                </dd>
+
+            </dl>
+            <p>
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSach })
+            </p>
+        </div>
+    </div>
+</div>

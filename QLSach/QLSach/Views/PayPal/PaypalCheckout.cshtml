@@ -1,0 +1,60 @@
+﻿@model List<QLSach.Models.ShoppingCartItem>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PaypalCheckout</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+  <form method="post" name="cart" action="https://www.sandbox.paypal.com/cgi-bin/webscr">
+  <input type="hidden" name="cmd" value="_cart">
+  <input type="hidden" name="upload" value="1">
+  <input type="hidden" name="business" value="@ViewData["business"]">
+  <input type="hidden" name="lc" value="US">
+  <input type="hidden" name="currency_code" value="USD">
+  <input type="hidden" name="button_subtype" value="services">
+  <input type="hidden" name="notify_url" value="@ViewData["notify_url"]" />
+  <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
+  <input type="hidden" name="return" value="@ViewData["return"]" />
+  <input type="hidden" name="rm" value="2" />
+  <input type="hidden" name="no_shipping" value="1" /> 
+
+  <input type="hidden" name="custom" value="@ViewData["madonhang"]">
+
+      @{int index = 0;}
+   @foreach(var item in Model)
+   {
+        index = index + 1;
+        <input type="hidden" name="@("item_name_" + index)" value="@item.ProductName"/>
+        <input type="hidden" name="@("item_number_" + index)" value="@item.ProductID" />
+
+        <input type="hidden" name="@("amount_" + index)" value="@item.Price"/>
+        <input TYPE="hidden" name="@("quantity_" + index)" value="@item.Quantity">
+   }
+    
+
+</form>
+
+    <p style="text-align: center">
+        <h3>
+            Connecting to Paypal , please wait ...
+
+        </h3>
+    </p>
+</body>
+
+
+<script type="text/javascript" language="javascript">
+    $(this.document).ready(function () {
+        var form = $("form");
+        form.submit();
+    });
+</script>
+
+</html>

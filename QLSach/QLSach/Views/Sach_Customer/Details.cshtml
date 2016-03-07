@@ -1,0 +1,66 @@
+﻿@model QLSach.Models.Sach
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<script src=" ~/Scripts/jquery-2.1.4.intellisense.js"></script>
+<script src=" ~/Scripts/jquery-2.1.4.js"></script>
+<script src=" ~/Scripts/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    function AddToCart(id) {
+        $.post("/ShoppingCart/AddToCart", { "id": id },
+        function (data) {
+            if (data.Code == '0') {
+                load();
+                alert('Thêm sản phẩm vào giỏ hàng thành công');
+            }
+        });
+        return false;
+    }
+    function load() {
+        $.post("/ShoppingCart/InformationCart",
+        function (data) {
+            var str="";
+            str += data.Item + " sản phẩm" + "<br />";
+            str += "<span class='border_cart'>" + "</span>" + " Tổng: " + "<span class='price'>" + data.Total + " VND" + "</span>"
+            $("#result").html(str);
+        });
+    };
+</script>
+
+<div class="center_content">
+    <div class="center_title_bar">@Model.TenSach</div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+            <div class="product_img_big">
+                <a href="javascript:popImage('images/big_pic.jpg','Some Title')" title="header=[Zoom] body=[&nbsp;] fade=[on]"><img src="@Url.Content("~/assets/product/")@Model.AnhBia" width="125" height="175" alt="" border="0" /></a>
+            </div>
+            <div class="details_big_box">
+                <div class="product_title_big">@Model.TenSach</div>
+                <div class="specifications">
+                    Mã sách: <span class="blue">@Model.MaSach</span><br />
+                    Tác giả: <span class="blue">@Model.TacGia</span><br />
+                    Năm sản xuất: <span class="blue">@Model.NamSanXuat</span><br />
+                    Nhà xuất bản: <span class="blue">@Model.NhaXuatBan</span><br />
+                    Số lượng còn: <span class="blue">@Model.SoLuongTon</span><br />
+                </div>
+                <div class="prod_price_big">Giá: <span class="price">@Model.Gia</span></div>
+                <a class="addtocart" onclick="AddToCart(@Model.MaSach);">add to cart</a> <a href="/Sach_Customer/GetBookByPrice/?gia=@Model.Gia&&id=@Model.MaSach" class="compare">compare to</a>
+            </div>
+        </div>
+        <div class="bottom_prod_box_big"></div>
+    </div>
+
+    <div class="center_title_bar">Mô tả</div>
+    <div class="prod_box_big">
+        <div class="product_title_big">@Model.TenSach</div>
+        <div class="specifications">
+            <p>
+                <span @*class="blue"*@>@Model.MoTa</span><br />
+            </p>
+        </div>
+    </div>
+</div>

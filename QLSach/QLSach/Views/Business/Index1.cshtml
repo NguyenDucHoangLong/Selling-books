@@ -1,0 +1,139 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_title_bar">Kiểm tra tồn kho</div>
+<div class="prod_box_big">
+    <div class="top_prod_box_big"></div>
+    <div class="center_prod_box_big">
+        <div class="contact_form">
+            <div class="form_row">
+                <label class="contact"><strong>Username</strong></label>
+                <input type="text" class="contact_input" id="username" value="@ViewData["username"]" readonly="readonly"/>
+            </div>
+            <div class="form_row">
+                <label class="contact"><strong>Password</strong></label>
+                <input type="password" class="contact_input" id="password" />
+            </div>
+            <div class="form_row">
+                <label class="contact"><strong>Consumer_key</strong></label>
+                <input type="text" class="contact_input" id="mancc" />
+            </div>
+            <div class="form_row">
+                <input type="button" value="Kiểm tra" onclick="get();" />
+            </div>
+        </div>
+        @*<div id="result" class="prod_box_big">*@
+            <div id="result"></div>
+        @*</div>*@
+        
+    </div>
+    <div class="bottom_prod_box_big"></div>
+</div>
+@*-------Thông tin đơn hàng-------*@
+<div class="center_title_bar">Tạo giao dịch mới</div>
+<div class="prod_box_big">
+    <div class="top_prod_box_big"></div>
+    <div class="center_prod_box_big">
+            <div class="contact_form">
+                <div class="form_row">
+                    <label class="contact"><strong>Mã hợp đồng</strong></label>
+                    <input type="text" id="mahopdong" class="contact_input" />
+                </div>
+
+                <div class="form_row">
+                    <label class="contact"><strong>Mã sách</strong></label>
+                    <input type="text" id="masach" class="contact_input" />
+                </div>
+
+                <div class="form_row">
+                    <label class="contact"><strong>Số lượng</strong></label>
+                    <input type="number" id="soluong" class="contact_input" />
+                </div>
+
+                <div class="form_row">
+                    <label class="contact"><strong>Ngày giao dự kiến</strong></label>
+                    <input type="date" id="ngaygiao" class="contact_input" />
+                </div>
+
+                <div class="form_row">
+                    <input type="button" value="Tạo" onclick="insert();" />
+                </div>
+            </div>
+    </div>
+    <div class="bottom_prod_box_big"></div>
+</div>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+
+
+        function insert() {
+
+            $.ajax(
+                {
+                    url: "http://localhost:5589/api/orders/start_shipping",
+                    type: "POST",
+                    dataType: "json",
+                    cache: false,
+                    crossDomain: true,
+                    processData: true,
+                    //contentType: "application/text",
+                    data: { suppiler_key: $('#mancc').val(), order_id: $('#mahopdong').val(), product_id: $('#masach').val(), product_quantity: $('#soluong').val(), product_date: $('#ngaygiao').val(), username: $('#username').val(), password: $('#password').val() },
+                    success: function () { },
+                    statusCode: {
+                        404: function () {
+                            alert("Không thêm được");
+                        },
+                        200: function () {
+                            alert("Thành công");
+                        },
+                        401: function () {
+                            alert("Access_token hết hiệu lực");
+                        }
+                    }
+                });
+
+        }
+
+        function get() {
+            $.ajax(
+                  {
+                      url: "http://localhost:5589/api/orders",
+                      type: "POST",
+                      dataType: "json",
+                      cache: false,
+                      crossDomain: true,
+                      processData: true,
+                      data: { suppiler_key: $('#mancc').val(), username: $('#username').val(), password: $('#password').val() },
+                      success: function (data) {
+                          var str = "<table class= 'table' ,border = 1, width = '50%'>";
+                          str += "<tr>";
+                          str += "<td>" + "Mã hợp đồng" + "</td>";
+                          str += "<td>" + "Mã sách" + "</td>";
+                          str += "<td>" + "Tên sách" + "</td>";
+                          str += "<td>" + "Số lượng tồn kho" + "</td>";
+                          $.each(data, function (key, val) {
+                              str += "<tr>";
+                              str += "<td>" + val.MaHopDong + "</td>";
+                              str += "<td>" + val.MaSach + "</td>";
+                              str += "<td>" + val.TenSach + "</td>";
+                              str += "<td>" + val.SoLuongTon + "</td>";
+                              str += "</tr>";
+                          });
+                          str += "</table>";
+                          $("#result").html(str);
+                      },
+                      statusCode: {
+                          401: function () {
+                              alert("Access_token hết hiệu lực");
+                          },
+                          404: function () {
+                              alert("Không tìm thấy");
+                          }
+                      }
+                  });
+
+
+        }
+
+    </script>

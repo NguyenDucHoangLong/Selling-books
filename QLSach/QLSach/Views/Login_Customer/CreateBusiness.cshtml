@@ -1,0 +1,80 @@
+﻿@model QLSach.Models.TaiKhoan
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<script src=" ~/Scripts/jquery-2.1.4.intellisense.js"></script>
+<script src=" ~/Scripts/jquery-2.1.4.js"></script>
+<script src=" ~/Scripts/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    function Check() {
+        if ($('#username').val() == "") {
+            alert('Nhập tên đăng nhập');
+            return false;
+        }
+        else {
+            $.post("/Login_Customer/CheckName", { "name": $('#username').val() },
+            function (data) {
+                if (data.Code == '1') {
+                    alert('Tên đăng nhập trùng');
+                    return false;
+                }
+                return true;
+            });
+        }
+    };
+    function Check1() {
+        if ($('#username').val() == "" || $('#pass').val() == "" || $('#ten').val() == "" || $('#taikhoan').val() == "" || $('#diachi').val() == "" || $('#email').val() == "" || $('#sdt').val() == "") {
+            alert("Chưa nhập đầy đủ thông tin");
+            return false;
+        }
+        return true;
+    };
+</script>
+
+<div class="center_content">
+    <div class="center_title_bar">Tạo tài khoản</div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+            <form action="/Login_Customer/InsertBusiness" method="post">
+                <div class="contact_form">
+                    <div class="form_row">
+                        <label class="contact"><strong>Tên đăng nhập</strong></label>
+                        <input id="username" type="text" placeholder="Tên đăng nhập" class="contact_input" name="username" onkeyup="return Check();" onchange="Check();" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Mật khẩu</strong></label>
+                        <input id="pass" type="password" placeholder="Mật khẩu" class="contact_input" name="pass" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Tên công ty</strong></label>
+                        <input id="ten" type="text" placeholder="Tên đầy đủ" class="contact_input" name="tenncc" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Địa chỉ</strong></label>
+                        <input id="diachi" type="text" placeholder="Địa chỉ" class="contact_input" name="diachi" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>SDT</strong></label>
+                        <input id="sdt" type="text" placeholder="Số điện thoại" class="contact_input" name="sdt" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Tài khoản</strong></label>
+                        <input id="taikhoan" type="text" placeholder="Tài khoản" class="contact_input" name="taikhoan" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Email</strong></label>
+                        <input id="email" type="email" placeholder="Email" class="contact_input" name="email" />
+                    </div>
+                    <div class="form_row">
+                        <input type="submit" value="Đăng kí" onclick="return Check1();"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom_prod_box_big"></div>
+    </div>
+</div>

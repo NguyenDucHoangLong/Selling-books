@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_title_bar">Chứng thực</div>
+<div class="prod_box_big">
+    <div class="top_prod_box_big"></div>
+    <div class="center_prod_box_big">
+        <div>
+            <form action="/Login/ChungThuc1" method="post">
+                <p>Bạn có đồng ý cấp quyền truy cập cho ứng dụng này?</p>
+                <input type="hidden" name="token" value="@ViewData["token"]" />
+                <input type="hidden" name="callback" value="@ViewData["callback"]" />
+
+
+                <input type="submit" name="Agree" value="Yes" />
+                <input type="submit" name="Agree" value="No" />
+            </form>
+        </div>
+    </div>
+    <div class="bottom_prod_box_big"></div>
+</div>

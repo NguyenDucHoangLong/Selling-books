@@ -1,0 +1,39 @@
+﻿@model PagedList.IPagedList<QLSach.Models.CTDH_KH>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_content">
+    <div class="center_title_bar">Tất cả sách</div>
+    <div class="prod_box_big">
+        <table class="table">
+            <tr>
+                <th>MaDH</th>
+                <th>Tên sách</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaDonHang</td>
+                    <td>@item.Sach.TenSach</td>
+                    <td>@item.SoLuong</td>
+                    <td>@item.DonGia</td>
+                    <td>@item.ThanhTien</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="center_title_bar1">
+        <div class="pager">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new {id=@Model.FirstOrDefault().MaDonHang, page }))
+        </div>
+        Kết quả hiển thị từ @Model.FirstItemOnPage tới @Model.LastItemOnPage trong @Model.TotalItemCount chi tiết đơn hàng
+    </div>
+</div>
+

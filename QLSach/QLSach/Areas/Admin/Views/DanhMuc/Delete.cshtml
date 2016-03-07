@@ -1,0 +1,43 @@
+﻿@model QLSach.Models.DanhMuc
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminDefault.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Bạn có thật sự muốn xóa danh mục này không?</h3>
+            </div>
+            <dl class="dl-horizontal">
+                <dt>
+                    Mã danh mục
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MaDanhMuc)
+                </dd>
+
+                <dt>
+                    Tên danh mục
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TenDanhMuc)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-default" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

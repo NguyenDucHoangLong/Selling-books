@@ -1,0 +1,69 @@
+﻿@model QLSach.Models.NhaCungCap
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_content">
+    <div class="center_title_bar">Thông tin tài khoản - <a href="/Login_Customer/ChangePass">Đổi mật khẩu</a></div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+            <form action="/NhaCungCap_Customer/Edit" method="post">
+                <div class="contact_form">
+                    <input type="hidden" value="@Model.MaNCC" class="contact_input" name="mancc" />
+                    <div class="form_row">
+                        <label class="contact"><strong>Tên NCC</strong></label>
+                        <input type="text" value="@Model.TenNCC" class="contact_input" name="tenncc" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Địa chỉ</strong></label>
+                        <input type="text" value="@Model.DiaChi" class="contact_input" name="diachi" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>SDT</strong></label>
+                        <input type="text" value="@Model.SDT" class="contact_input" name="sdt" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Tài khoản</strong></label>
+                        <input type="text" value="@Model.TaiKhoan" class="contact_input" name="taikhoan" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Email</strong></label>
+                        <input type="email" value="@Model.Email" class="contact_input" name="email" />
+                    </div>
+                    <div class="form_row">
+                        <input type="submit" value="Sửa" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom_prod_box_big"></div>
+    </div>
+    <!------------------------->
+    <div class="center_title_bar">Thông tin token</div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+            <form action="/NhaCungCap_Customer/GetConsumerKey" method="post">
+                <div class="contact_form">
+                    <input type="hidden" value="@Model.MaNCC" class="contact_input" name="mancc" />
+                    <div class="form_row">
+                        <label class="contact"><strong>Consumer_key</strong></label>
+                        <input type="text" value="@ViewData["Consumer_key"]" class="contact_input" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Access_token</strong></label>
+                        <input type="text" value="@ViewData["Access_token"]" class="contact_input" />
+                    </div>
+                    <div class="form_row">
+                        <input type="submit" value="Get ConsumerKey" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom_prod_box_big"></div>
+    </div>
+</div>
+

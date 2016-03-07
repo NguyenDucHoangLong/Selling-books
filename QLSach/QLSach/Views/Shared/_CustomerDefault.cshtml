@@ -1,0 +1,178 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Book Store</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <link href="~/assets/customer/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="/assets/customer/js/boxOver.js"></script>
+    <script src=" ~/Scripts/jquery-2.1.4.intellisense.js"></script>
+    <script src=" ~/Scripts/jquery-2.1.4.js"></script>
+    <script src=" ~/Scripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.post("/ShoppingCart/InformationCart",
+            function (data) {
+                var str="";
+                str += data.Item + " sản phẩm" + "<br />";
+                str += "<span class='border_cart'>" + "</span>" + " Tổng: " + "<span class='price'>" + data.Total + " VND" + "</span>"
+                $("#result").html(str);
+            });
+        });
+
+        function newbook() {
+            $.post("/Sach_Customer/NewBook",
+            function (data) {
+                var str = "";
+                str += "<div class='product_title'><a href='/Sach_Customer/Details/" + data.MaSach + "'>" + data.Ten + "</a></div>";
+                str += "<div class='product_img'>";
+                str += "<img width='94' height='100' alt='' border='0' src='/assets/product/" + data.Anh +  "' />";
+                str += "</div>";
+                str += "<div class='prod_price'><span class='price'>" + data.Gia + " VND" + "</span></div>";
+                $("#new").html(str);
+            });
+            return false;
+        }
+        window.onload = newbook();
+    </script>
+
+</head>
+<body>
+    <div id="main_container">
+        <div class="top_bar">
+            <div class="top_search">
+                <div class="search_text">Tìm kiếm</div>
+                <form action="/Sach_Customer/GetBookByName/" method="post">
+                    <input type="text" class="search_input" name="keyword" id="keyword" />
+                    <input type="image" src="/assets/customer/images/search.gif" class="search_bt" />
+                </form>
+            </div>
+            @*<div class="languages">
+                <div class="lang_text">Ngôn ngữ:</div>
+                <a href="http://all-free-download.com/free-website-templates/" class="lang"><img src="/assets/customer/images/en.gif" alt="" border="0" /></a> <a href="http://all-free-download.com/free-website-templates/" class="lang"><img src="/assets/customer/images/de.gif" alt="" border="0" /></a>
+            </div>*@
+        </div>
+        <div id="header">
+            <div id="logo"> <a href="http://all-free-download.com/free-website-templates/"><img src="/assets/customer/images/logo.png" alt="" border="0" width="237" height="140" /></a> </div>
+            <div class="oferte_content">
+                <div class="top_divider"><img src="/assets/customer/images/header_divider.png" alt="" width="1" height="164" /></div>
+                <div class="oferta">
+                    <div class="oferta_content">
+                        <img src="/assets/customer/images/book.jpg" width="290" height="144" alt="" border="0" class="oferta_img" />
+                        <div class="oferta_details">
+                            <div class="oferta_title">Sách là nguồn tri thức vô giá</div>
+                            <div class="oferta_text">"Sách là nơi lưu giữ nền văn minh. Không có sách lịch sử trầm lắng, văn chương buồn chán."</div>
+                            <div class="oferta_text">"Sách là người bạn yên lặng và trung thành nhất. Sách là nhà cố vấn"</div>
+                            <div class="oferta_text">"Sách mở ra trước mắt ta những chân trời mới."</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top_divider"><img src="/assets/customer/images/header_divider.png" alt="" width="1" height="164" /></div>
+            </div>
+            <!-- end of oferte_content-->
+        </div>
+        <div id="main_content">
+            <div id="menu_tab">
+                <div class="left_menu_corner"></div>
+                <ul class="menu">
+                    <li><a href="/Home_Customer/Index" class="nav1">Trang chủ</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/Sach_Customer/Index" class="nav2">Sản phẩm</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/Home_Customer/CheckRole" class="nav3">Tài khoản</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/Login_Customer/Login" class="nav4">Đăng nhập</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/DonHang_KH_Customer/Index" class="nav4">Đơn hàng</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/Sach_Customer/BookBuy" class="nav5">Đối tác</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/Home_Customer/Contact" class="nav6">Phản hồi</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/Login_Customer/Logout" class="nav6">Đăng xuất</a></li>
+                </ul>
+                <div class="right_menu_corner"></div>
+            </div>
+            <!-- end of menu tab -->
+            <div class="crumb_navigation"> Navigation: <span class="current">Home</span> </div>
+            <div class="left_content">
+                <div class="title_box">Danh Mục</div>
+                <ul class="left_menu">
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/1">Kỹ thuật</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/2">Giáo dục</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByCategory/3">Y dược</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/4">Văn học-Xâ hội</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByCategory/5">Khoa học-Tự nhiên</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/6">Pháp luật</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByCategory/7">Báo chí</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/8">Chính trị-Triết học</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByCategory/9">Công nghệ thông tin</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/10">Lịch sử-Địa lý</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByCategory/11">Mỹ thuật-Kiến trúc-Nhiếp ảnh</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/12">Tâm lý-Thần học</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByCategory/13">Tạp chí</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/14">Tiếng anh</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByCategory/15">Truyện thiếu nhi</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/16">Truyện tranh, Managa, Comic</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByCategory/17">Sách giáo khoa</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/18">Sách tham khảo</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByCategory/19">Truyện cho tuổi mới lớn</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByCategory/20">Kỹ năng sống</a></li>
+                </ul>
+                @*<div class="title_box">Nhận tin mới</div>
+                <div class="border_box">
+                    <input type="text" name="newsletter" class="newsletter_input" value="your email" />
+                    <a href="http://all-free-download.com/free-website-templates/" class="join">Thêm</a>
+                </div>*@
+                <div class="banner_adds"> <a href="http://all-free-download.com/free-website-templates/"><img src="/assets/customer/images/bann2.jpg" alt="" border="0" /></a> </div>
+            </div>
+            <!-- end of left content -->
+            <div class="center_content">
+                
+                @RenderBody()
+                
+               
+            </div>
+            <!-- end of center content -->
+            <div class="right_content">
+                <div class="shopping_cart">
+                    <div class="cart_title">Shopping cart</div>
+                    <div class="cart_details">
+                        <div id="result">
+                        </div>
+                    </div>
+                    <div class="cart_icon"><a href="/ShoppingCart/Index" title="header=[Checkout] body=[&nbsp;] fade=[on]"><img src="/assets/customer/images/shoppingcart.png" alt="" width="48" height="48" border="0" /></a></div>
+                </div>
+                <div class="title_box">Sách mới</div>
+                <div class="border_box">
+                    <div id="new">
+                    </div>
+                </div>
+                <div class="title_box">Nhà xuất bản</div>
+                <ul class="left_menu">
+                    <li class="odd"><a href="/Sach_Customer/GetBookByProducter/?name=Tuổi trẻ">Tuổi trẻ</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByProducter/?name=Nhi đồng">Nhi Đồng</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByProducter/?name=Lao động">Lao động</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByProducter/?name=Kim đồng">Kim đồng</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByProducter/?name=Thanh niên">Thanh niên</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByProducter/?name=Phụ nữ">Phụ nữ</a></li>
+                    <li class="odd"><a href="/Sach_Customer/GetBookByProducter/?name=Thời đại">Thời đại</a></li>
+                    <li class="even"><a href="/Sach_Customer/GetBookByProducter/?name=Dân trí">Dân trí</a></li>
+                </ul>
+                <div class="banner_adds"> <a href="http://all-free-download.com/free-website-templates/"><img src="/assets/customer/images/bann1.jpg" alt="" border="0" /></a> </div>
+            </div>
+            <!-- end of right content -->
+        </div>
+        <!-- end of main content -->
+        <div class="footer">
+            <div class="left_footer"> <img src="/assets/customer/images/footer_logo.png" alt="" width="170" height="49" /> </div>
+            <div class="center_footer">
+                Template name. All Rights Reserved 2008<br />
+                <a href="http://csscreme.com"><img src="/assets/customer/images/csscreme.jpg" alt="csscreme" border="0" /></a><br />
+                <img src="/assets/customer/images/payment.gif" alt="" />
+            </div>
+            <div class="right_footer"> <a href="http://all-free-download.com/free-website-templates/">home</a> <a href="http://all-free-download.com/free-website-templates/">about</a> <a href="http://all-free-download.com/free-website-templates/">sitemap</a> <a href="http://all-free-download.com/free-website-templates/">rss</a> <a href="contact.html">contact us</a> </div>
+        </div>
+    </div>
+    <!-- end of main_container -->
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿@model PagedList.IPagedList<QLSach.Models.Sach>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+<div class="center_content">
+    <div class="center_title_bar">Tất cả sách <a href="/HopDong_Customer/Index" title="header=[Danh sách hợp đồng đã kí] body=[&nbsp;] fade=[on]" class="payment"> Hợp đồng kí kết</a></div>
+    @if (@ViewData["error"].ToString()=="error")
+    {
+        <div class="details_big_box">
+            <h3>@Html.ValidationMessage("fail") </h3>
+        </div>
+    }
+    else
+    {
+        if(Model==null)
+        {
+            <div class="details_big_box">
+                <h3>Không có kết quả</h3>
+            </div>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <div class="prod_box_big">
+                    <div class="top_prod_box_big"></div>
+                    <div class="center_prod_box_big">
+                        <div class="product_img_big">
+                            <a href="javascript:popImage('images/big_pic.jpg','Some Title')" title="header=[Zoom] body=[&nbsp;] fade=[on]"><img src="@Url.Content("~/assets/product/")@item.AnhBia" width="100" height="125" alt="" border="0" /></a>
+                        </div>
+                        <div class="details_big_box">
+                            <div class="product_title_big">@item.TenSach</div>
+                            <div class="specifications">
+                                Tồn kho tối thiểu: <span class="blue">@item.SoLuongTonToiThieu</span><br />
+                                Số lượng cần: <span class="blue">@item.SoLuongCan</span><br />
+                                Thời hạn hợp đồng: <span class="blue">@item.ThoiHan năm</span><br />
+                            </div>
+                            <div class="prod_price_big"></div>
+                            <a href="/KhaNangCungCap_Customer/Create/@item.MaSach">Đăng kí</a>
+                        </div>
+                    </div>
+                    <div class="bottom_prod_box_big"></div>
+                </div>
+            }
+            <div class="center_title_bar1">
+                <div class="pager">
+                    @Html.PagedListPager(Model, page => Url.Action("BookBuy", new { page }))
+                </div>
+                Kết quả hiển thị từ @Model.FirstItemOnPage tới @Model.LastItemOnPage trong @Model.TotalItemCount sản phẩm
+            </div>
+        }
+    }
+</div>
+

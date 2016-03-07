@@ -1,0 +1,49 @@
+﻿@model QLSach.Models.KhachHang
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_content">
+    <div class="center_title_bar">Thông tin tài khoản - <a href="/Login_Customer/ChangePass">Đổi mật khẩu</a></div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+            <form action="/KhachHang_Customer/Edit" method="post">
+                <div class="contact_form">
+                        <input type="hidden" value="@Model.MaKH" class="contact_input" name="makh" />
+                    <div class="form_row">
+                        <label class="contact"><strong>Họ tên</strong></label>
+                        <input type="text" value="@Model.HoTen" class="contact_input" name="hoten" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Ngày sinh</strong></label>
+                        <input type="text" value="@Model.NgSinh" class="contact_input" name="ngaysinh" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Giới tính</strong></label>
+                        <input type="text" value="@Model.GioiTinh" class="contact_input" name="gioitinh" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Địa chỉ</strong></label>
+                        <input type="text" value="@Model.DiaChi" class="contact_input" name="diachi" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>SDT</strong></label>
+                        <input type="text" value="@Model.SDT" class="contact_input" name="sdt" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Email</strong></label>
+                        <input type="email" value="@Model.Email" class="contact_input" name="email" />
+                    </div>
+                    <div class="form_row">
+                        <input type="submit" value="Sửa" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom_prod_box_big"></div>
+    </div>
+</div>
+

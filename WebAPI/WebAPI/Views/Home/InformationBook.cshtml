@@ -1,0 +1,149 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InformationBook</title>
+    <script src=" ~/Scripts/jquery-2.1.4.intellisense.js"></script>
+    <script src=" ~/Scripts/jquery-2.1.4.js"></script>
+    <script src=" ~/Scripts/jquery-2.1.4.min.js"></script>
+    <script>
+    function getdata() {
+        $.ajax(
+            {
+                url: "/api/orders",
+                type: "GET",
+                data: { id: $('#suplier_key').val(), access_token: $('#maxacthuc').val() },
+                success: function (data) {
+                    var str = "<table border = 1, width = '50%'>";
+                    str += "<tr>";
+                    str += "<td>" + "Mã hợp đồng" + "</td>";
+                    str += "<td>" + "Mã sách" + "</td>";
+                    str += "<td>" + "Tên sách" + "</td>";
+                    str += "<td>" + "Số lượng tồn kho" + "</td>";
+                    $.each(data, function (key, val) {
+                        str += "<tr>";
+                        str += "<td>" + val.MaHopDong + "</td>";
+                        str += "<td>" + val.MaSach + "</td>";
+                        str += "<td>" + val.TenSach + "</td>";
+                        str += "<td>" + val.SoLuongTon + "</td>";
+                        str += "</tr>";
+                    });
+                    str += "</table>";
+                    $("#result").html(str);
+                },
+                statusCode: {
+                    401: function () {
+                        alert("Access_token hết hiệu lực! Bạn vui lòng Click 'Authorized' để xác thực");
+                    },
+                    404: function () {
+                        alert("Không tìm thấy");
+                    }
+                }
+            });
+    }
+
+    function insert() {
+        $.ajax(
+            {
+                url: "/api/orders/start_shipping",
+                type: "POST",
+                dataType: "text",
+                //contentType: "application/text",
+                data: { suplier_key: $('#mancc').val(), order_id: $('#mahopdong').val(), product_id: $('#masach').val(), product_quantity: $('#soluong').val(), product_date: $('#ngaygiao').val(), access_token: $('#maxacthuc').val() },
+                success: function () { },
+                statusCode: {
+                    404: function () {
+                        alert("Không thêm được");
+                    },
+                    200: function () {
+                        alert("Thành công");
+                    },
+                    401: function () {
+                        alert("Access_token hết hiệu lực");
+                    }
+                }
+            });
+    }
+    </script>
+</head>
+<body>
+    @Ajax.ActionLink("Authorized", "Authorized", "Login", new AjaxOptions{
+                                                                          UpdateTargetId = "load",
+                                                                          InsertionMode = InsertionMode.Replace,
+                                                                          HttpMethod = "GET",
+                                                                          LoadingElementId = "load"
+                                                                          })
+    <div id="load">
+        <h3>Kiểm tra tồn kho</h3>
+        <table>
+            <tr>
+                <td>Mã NCC:</td>
+                <td>
+                    <input type="text" id="suplier_key" />
+                </td>
+            </tr>
+            <tr>
+                <td>Access_token:</td>
+                <td>
+                    <input type="text" id="maxacthuc" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @*<form action="../login/authorized" method="post">
+                        <button id="Authorized" type="submit" onclick="chungthuc();">Authorized</button>
+                    </form>*@
+                </td>
+                <td>
+                    <input type="button" id="Search" value="Search" onclick="getdata();" />
+                </td>
+            </tr>
+        </table>
+        <div id="result"></div>
+        <br />
+
+        <h3>Tạo giao dịch mới</h3>
+        <table>
+            <tr>
+                <td>Mã NCC: </td>
+                <td>
+                    <input type="text" id="mancc" />
+                </td>
+            </tr>
+            <tr>
+                <td>Mã hợp đồng: </td>
+                <td>
+                    <input type="text" id="mahopdong" />
+                </td>
+            </tr>
+            <tr>
+                <td>Mã sách: </td>
+                <td>
+                    <input type="text" id="masach" />
+                </td>
+            </tr>
+            <tr>
+                <td>Số lượng giao: </td>
+                <td>
+                    <input type="text" id="soluong" />
+                </td>
+            </tr>
+            <tr>
+                <td>Ngày giao: </td>
+                <td>
+                    <input type="text" id="ngaygiao" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="button" id="Save" value="Save" onclick="insert();" /></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

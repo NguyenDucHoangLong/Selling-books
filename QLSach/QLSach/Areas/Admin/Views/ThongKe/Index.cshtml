@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminDefault.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Thống kê bán hàng
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+
+                                <div class="control-label col-md-2">Ngày bắt đầu</div>
+                                <div class="col-md-10">
+                                    <input type="date" id="ngaybd" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="control-label col-md-2">Ngày kết thúc</div>
+                                <div class="col-md-10">
+                                    <input type="date" id="ngaykt" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Thống kê" class="btn btn-default" onclick="ThongKe();" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Kết quả thống kê</h4>
+            </div>
+            <div class="panel-body">
+                <div id="result">
+
+                </div>
+            </div>
+        </div>
+   </div>
+</div>
+
+            <script src=" ~/Scripts/jquery-2.1.4.intellisense.js"></script>
+            <script src=" ~/Scripts/jquery-2.1.4.js"></script>
+            <script src=" ~/Scripts/jquery-2.1.4.min.js"></script>
+            <script type="text/javascript">
+                function ThongKe() {
+                    $.post("/Admin/ThongKe/ThongKe", { "ngay1": $('#ngaybd').val(), "ngay2": $('#ngaykt').val() },
+                    function (data) {
+                        var str = "";
+                        str += "<h4> Tổng số hóa đơn: " + data.Tong + "</h4>"
+                        str += "<h4> Tổng số tiền: " + data.Total + "</h4>"
+                        str += "<h4> Số đơn hàng đã hủy: " + data.Fail + "</h4>"
+                        $("#result").html(str);
+                    });
+                };
+            </script>
+

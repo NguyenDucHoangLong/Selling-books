@@ -1,0 +1,64 @@
+﻿@model QLSach.Models.KhachHang
+
+@{
+    ViewBag.Title = "InformationOrder";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_content">
+    <div class="center_title_bar">Thông tin khách hàng</div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+                <div class="contact_form">
+                    <div class="form_row">
+                        <label class="contact"><strong>Họ tên</strong></label>
+                        <input type="text" value="@Model.HoTen" class="contact_input" readonly="readonly"/>
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Địa chỉ</strong></label>
+                        <input type="text" value="@Model.DiaChi" class="contact_input" readonly="readonly"/>
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>SDT</strong></label>
+                        <input type="text" value="@Model.SDT" class="contact_input" readonly="readonly"/>
+                    </div>
+                </div>
+        </div>
+        <div class="bottom_prod_box_big"></div>
+    </div>
+    @*-------Thông tin đơn hàng-------*@
+    <div class="center_title_bar">Thông tin đơn hàng</div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+            <form action="/DonHang_KH_Customer/Insert" method="post">
+                <div class="contact_form">
+                    <input type="hidden" value="@Model.MaKH" class="contact_input" name="makh" />
+                    <div class="form_row">
+                        <label class="contact"><strong>Ngày giao hàng</strong></label>
+                        <input type="date" name="ngaygiao" class="contact_input" />
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Thanh toán</strong></label>
+                        <select class="contact_input" name="thanhtoan">
+                            <option value="0">Trả sau</option>
+                            <option value="1">Trả trước</option>
+                        </select>
+                    </div>
+                    <div class="form_row">
+                        Nhập địa chỉ mới nếu bạn không muốn dùng địa chỉ ở trên
+                    </div>
+                    <div class="form_row">
+                        <label class="contact"><strong>Địa chỉ</strong></label>
+                        <input type="text" class="contact_input" value="@Model.DiaChi" name="diachi" />
+                    </div>
+                    <div class="form_row">
+                        <input type="submit" value="Đặt hàng" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="bottom_prod_box_big"></div>
+    </div>
+</div>

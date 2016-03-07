@@ -1,0 +1,59 @@
+﻿@model QLSach.Models.HopDong
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminDefault.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Bạn có thật sự muốn xóa hợp đồng này không?</h3>
+            </div>
+            <dl class="dl-horizontal">
+                <dt>
+                    Ngày bắt đầu
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NgayBatDau)
+                </dd>
+
+                <dt>
+                    Ngày kết thúc
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NgayKetThuc)
+                </dd>
+
+                <dt>
+                    Tình trạng
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TinhTrang)
+                </dd>
+
+                <dt>
+                    Nhà cung cấp
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NhaCungCap.TenNCC)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-default" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

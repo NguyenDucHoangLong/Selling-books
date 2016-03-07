@@ -1,0 +1,149 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Authorized</title>
+    <script src=" ~/Scripts/jquery-2.1.4.intellisense.js"></script>
+    <script src=" ~/Scripts/jquery-2.1.4.js"></script>
+    <script src=" ~/Scripts/jquery-2.1.4.min.js"></script>
+    <script>
+        function create_request() {
+            var str = "";
+            $.ajax(
+                {
+                    url: "/api/oauth/request_token",
+                    type: "GET",
+                    data: { consumer_key: $('#ma').val(), callback: $('#callback').val()},
+                    success: function (data){
+                        str += "<h2>" + "Thông tin xác thực" + "</h2>";
+
+                        str += "<table>";
+                            str += "<tr>";
+                                str += "<td>" + "RequestToken:" + "</td>";
+                                str += "<td>"+"<input type='text' id='request_token' value="+data+" readonly='readonly' size='20'/>"+"</td>";
+                            str += "</tr>";
+                        str += "</table>";
+                        str += "<div id=result2>";
+                        str +="</div>"
+                        $("#result1").html(str);
+                        disp_confirm()
+                    },
+                    statusCode: {
+                        401: function () {
+                            alert("Consumer_key fail");
+                        }
+                    }
+                });
+        }
+
+        function yes_request() {
+            var str = "";
+            var verifilier_token = "";
+            $.ajax(
+                {
+                    url: "/api/oauth/authenticate",
+                    type: "GET",
+                    data: { request_token: $('#request_token').val() },
+                    success: function (data) {
+                        str += "<table>";
+                            str += "<tr>";
+                                str += "<td>" + "VeriferToken:" + "</td>";
+                                str += "<td>" + "<input type='text' id='verifier_token' value=" + data + " readonly='readonly' size='20'/>" + "</td>";
+                            str += "</tr>";
+                        str += "</table>";
+                        str += "<div id=result3>";
+                        str +="</div>"
+                        verifilier_token += data;
+                        $("#result2").html(str);
+                        disp_confirm1()
+                    },
+                    statusCode: {
+                        401: function () {
+                            alert("Xảy ra lỗi");
+                        }
+                    }
+                });
+        }
+
+        function access_request() {
+            var str = "";
+            $.ajax(
+                {
+                    url: "/api/oauth/access_token",
+                    type: "GET",
+                    data: { consumer_key: $('#ma').val(), request_token: $('#request_token').val(), verifier_token: $('#verifier_token').val() },
+                    success: function (result) {
+                        str += "<table>";
+                        str += "<tr>";
+                        str += "<td>" + "AccesseToken:" + "</td>";
+                        str += "<td>" + "<input type='text' id='access_token' value=" + result + " readonly='readonly' size='20'/>" + "</td>";
+                        str += "</tr>";
+                        str += "</table>";
+                        $("#result3").html(str);
+                        alert("Click 'Information' để làm giao dịch mới");
+                    },
+                    statusCode: {
+                        401: function () {
+                            alert("Xảy ra lỗi");
+                        }
+                    }
+                });
+        }
+
+        function disp_confirm() {
+            var r = confirm("Bạn có đồng ý truy cập trang web không!")
+            if (r == true) {
+                yes_request();
+            }
+            else {
+            }
+        }
+
+        function disp_confirm1() {
+            var r = confirm("Bạn có muốn nhận mã xác thực mới không!")
+            if (r == true) {
+                access_request();
+            }
+            else {
+            }
+        }
+    </script>
+</head>
+<body>
+    @Ajax.ActionLink("Information", "Informationbook", "Home", new AjaxOptions
+                                                                    {
+                                                                        UpdateTargetId = "load",
+                                                                        InsertionMode = InsertionMode.Replace,
+                                                                        HttpMethod = "GET",
+                                                                        LoadingElementId = "load"
+                                                                    })
+    <div id="load">
+        <h2>Request Token</h2>
+        <table>
+            <tr>
+                <td>Consumer_Key:</td>
+                <td><input type="text" id="ma" size="20" /></td>
+            </tr>
+            <tr>
+                <td>Callback:</td>
+                <td>
+                    <input type="text" id="callback" value="http://localhost:3338/api/orders/request_token" readonly="readonly" size="20" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="button" value="Ok" onclick="create_request();" />
+                </td>
+            </tr>
+        </table>
+        <div id="result1"></div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_title_bar">Verifier_token</div>
+<div class="prod_box_big">
+    <div class="top_prod_box_big"></div>
+    <div class="center_prod_box_big">
+        <form id="tokenform" method="post" action="http://localhost:5589/api/oauth/authenticate">
+            <div class="contact_form">
+                <input id="request_token" type="hidden" name="request_token" value="@ViewData["request_token"]" />
+                <input id="callback" type="hidden" name="callback" value="123" />
+
+                <div class="form_row">
+                    <label class="contact"><strong>Get Verifier_token</strong></label>
+                    <input type="button" value="GET" onclick="insert();" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="bottom_prod_box_big"></div>
+</div>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+
+        function send() {
+
+            //var token = document.getElementById("request_token");
+            //var callback = document.getElementById("callback");
+            //callback.value = "http://etmdt2015client.somee.com/Home/Verify";
+
+            $.ajax(
+                  {
+                      url: "http://localhost:5589/api/oauth/authenticate",
+                      type: "POST",
+
+                      dataType: "json",
+                      cache: false,
+                      crossDomain: true,
+                      processData: true,
+                      //contentType: "application/text",
+                      data: { request_token: "123", callback: "123" },
+                      success: function (data) {
+                          alert(data.callback);
+
+                      }
+                  })
+
+
+
+
+        }
+
+        function insert() {
+
+            var token = document.getElementById("request_token");
+            var callback = document.getElementById("callback");
+            callback.value = "http://localhost:5589/Business/Verify";
+
+            var xhr = $.ajax(
+                {
+                    url: "http://localhost:5589/api/oauth/authenticate",
+                    type: "POST",
+
+                    dataType: "json",
+                    cache: false,
+                    crossDomain: true,
+                    processData: true,
+                    //contentType: "application/text",
+                    data: { request_token: token.value, callback: callback.value },
+                    success: function (data, status, xhr) {
+
+                        token.value = data.request_token;
+                        callback.value = data.callback;
+                        var location = xhr.getResponseHeader('Location');
+
+                        $("#tokenform").attr('action', location);
+                        document.getElementById("tokenform").submit();
+                    }
+                });
+
+        }
+
+
+
+
+    </script>

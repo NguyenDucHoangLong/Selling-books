@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d0d7f01676eb46f081043f5bfdb9941c" Name="Diagram1">
+        <EntityTypeShape EntityType="QLSachModel.ChiTietHopDong" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.CTDH_KH" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.DanhMuc" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.DonHang_KH" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.DonHang_NCC" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.HopDong" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.KhachHang" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.KhaNangCungCap" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.Sach" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.TaiKhoan" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLSachModel.Token" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <AssociationConnector Association="QLSachModel.FK_ChiTietHopDong_HopDong" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_ChiTietHopDong_Sach" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_CTDH_KH_DonHang_KH" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_CTDH_KH_Sach" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_Sach_DanhMuc" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_DonHang_KH_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_DonHang_NCC_HopDong" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_DonHang_NCC_Sach" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_HopDong_NhaCungCap" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_KhaNangCungCap_NhaCungCap" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_KhaNangCungCap_Sach" ManuallyRouted="false" />
+        <AssociationConnector Association="QLSachModel.FK_Token_NhaCungCap" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

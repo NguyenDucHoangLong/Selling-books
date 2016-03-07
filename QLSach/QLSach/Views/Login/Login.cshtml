@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<div class="center_content">
+    <div class="center_title_bar">Đăng nhập</div>
+    <div class="prod_box_big">
+        <div class="top_prod_box_big"></div>
+        <div class="center_prod_box_big">
+            <div>
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true);
+                    <div class="contact_form">
+                        <div class="form_row">
+                            <label class="contact"><strong>Tên đăng nhập</strong></label>
+                            <div class="editor-field">
+                                @Html.TextBox("username")
+                                @Html.ValidationMessage("username")
+                            </div>
+                        </div>
+                        
+                        <div class="form_row">
+                            <label class="contact"><strong>Mật khẩu</strong></label>
+                            <div class="editor-field">
+                                @Html.Password("Password")
+                                @Html.ValidationMessage("Password")
+                            </div>
+                        </div>
+                        <div class="form_row">
+                            <input type="submit" value="Đăng Nhập" />
+                        </div>
+                            <input type="hidden" name="callback" value="@ViewData["callback"]" />
+                            <input type="hidden" name="token" value="@ViewData["token"]" />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="bottom_prod_box_big"></div>
+    </div>
+</div>

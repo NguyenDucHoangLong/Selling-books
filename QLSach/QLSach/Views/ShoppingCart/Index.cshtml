@@ -1,0 +1,105 @@
+﻿@model PagedList.IPagedList<QLSach.Models.ShoppingCartItem>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CustomerDefault.cshtml";
+}
+
+<script src=" ~/Scripts/jquery-2.1.4.intellisense.js"></script>
+<script src=" ~/Scripts/jquery-2.1.4.js"></script>
+<script src=" ~/Scripts/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    function RemoveFromCart(id) {
+        if (confirm('Bạn thực sự muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+            $.post("/ShoppingCart/RemoveFromCart", { "id": id },
+            function (data) {
+                if (data.Code == '0') {
+                    alert('Xóa sản phẩm khỏi giỏ hàng thành công');
+                    window.location = '/ShoppingCart';
+                }
+            });
+        }
+        return false;
+    }
+    function UpdateQuantity(id, quantity) {
+        if (quantity < 1)
+        {
+            alert('Số lượng sản phẩm không hợp lệ');
+        }
+        else
+        {
+            $.post("/ShoppingCart/UpdateQuantity", { "id": id, "quantity": quantity },
+            function (data) {
+                if (data.Code == '0') {
+                    window.location = '/ShoppingCart';
+                }
+                if (data.Code == '-1') {
+                    alert('Số lượng tồn kho không đủ');
+                }
+            });
+        }
+        return false;
+    }
+    function load() {
+        $.post("/ShoppingCart/InformationCart",
+        function (data) {
+            var str = "";
+            str += data.Item + "  sản phẩm" + "<br />";
+            str += "<span class='border_cart'>" + "</span>" + " Tổng: " + "<span class='price'>" + data.Total + " VND" + "</span>"
+            $("#result").html(str);
+        });
+    };
+</script>
+
+
+
+<div class="center_content">
+    <div class="center_title_bar">
+        Giỏ hàng của bạn
+        @if(Model!=null)
+        {
+            <a href="/DonHang_KH_Customer/InformationOrder" title="header=[Thanh toán] body=[&nbsp;] fade=[on]" class="payment"> <img src="/assets/customer/images/payment.jpg" width="40" height="25" alt="" border="0" class="left_bt" /></a>
+        }
+    </div>
+    @if (Model == null)
+    {
+        <div class="details_big_box">
+            <h3>Giỏ hàng trống</h3>
+        </div>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="prod_box_big">
+                <div class="top_prod_box_big"></div>
+                <div class="center_prod_box_big">
+                    <div class="product_img_big">
+                        <a href="javascript:popImage('images/big_pic.jpg','Some Title')" title="header=[Zoom] body=[&nbsp;] fade=[on]"><img src="@Url.Content("~/assets/product/")@item.ProductImage" width="100" height="150" alt="" border="0" /></a>
+                    </div>
+                    <div class="details_big_box">
+                        <div class="product_title_big">@item.ProductName</div>
+                        <div class="specifications">
+                            Giá: <span class="blue">@item.Price</span><br />
+                            Số lượng: <input type="number" id="quantity_@item.ProductID" class="contact_input2" onchange ="return UpdateQuantity(@item.ProductID,this.value);" min="1"/><br />
+                            <script type="text/javascript">
+                                $('#quantity_@item.ProductID').val('@item.Quantity');
+                            </script>
+                            Tổng tiền: <span class="blue">@item.Total</span><br />
+                            <a title="header=[Remove to cart] body=[&nbsp;] fade=[on]" onclick="RemoveFromCart(@item.ProductID);"> <img src="/assets/customer/images/removetocart.png" width="30" height="30" alt="" border="0" class="left_bt" /></a> 
+                        </div>
+                        <div class="prod_price_big"></div>
+                    </div>
+                </div>
+                <div class="bottom_prod_box_big"></div>
+            </div>
+        }
+        <div class="center_title_bar1">
+            <div class="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+            Kết quả hiển thị từ @Model.FirstItemOnPage tới @Model.LastItemOnPage trong @Model.TotalItemCount sản phẩm
+        </div>
+    }
+</div>
+
